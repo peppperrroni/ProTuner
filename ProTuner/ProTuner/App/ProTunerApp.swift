@@ -11,7 +11,7 @@ import SwiftUI
 struct ProTunerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TunerView(viewModel: TunerViewModel())
         }
     }
 }
