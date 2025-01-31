@@ -8,12 +8,21 @@
 import Foundation
 import SwiftUI
 
+enum Mode: String, CaseIterable, Identifiable {
+    case auto = "Auto"
+    case manual = "Manual"
+    
+    var id: String { self.rawValue }
+}
+
 protocol TunerViewModelProtocol: ObservableObject {
+    var currentMode: Mode { get set }
     var alertData: AlertData { get set }
     func start()
 }
 
 final class TunerViewModel: TunerViewModelProtocol {
+    
     private let permissionManager: PermissionManagerProtocol
     
     init(permissionManager: PermissionManagerProtocol = PermissionManager()) {
@@ -36,6 +45,8 @@ final class TunerViewModel: TunerViewModelProtocol {
         isPresented: false
     )
     
+    @Published var currentMode: Mode = .auto
+    
     func start() {
         switch permissionManager.microphonePermissionStatus {
         case .granted:
@@ -55,7 +66,7 @@ final class TunerViewModel: TunerViewModelProtocol {
                 }
         }
     }
-    
+
     private func startFetchingData() {
         self.alertData.isPresented = false
     }

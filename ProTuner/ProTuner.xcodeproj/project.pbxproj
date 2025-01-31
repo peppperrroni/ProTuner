@@ -33,9 +33,22 @@
 		CAB0E28C2D43F1EB00AA97F8 /* ProTunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProTunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CA878D742D4CFE210043DC4A /* Exceptions for "ProTuner" folder in "ProTuner" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CAB0E2712D43F1EA00AA97F8 /* ProTuner */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CAB0E2742D43F1EA00AA97F8 /* ProTuner */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CA878D742D4CFE210043DC4A /* Exceptions for "ProTuner" folder in "ProTuner" target */,
+			);
 			path = ProTuner;
 			sourceTree = "<group>";
 		};
@@ -408,6 +421,7 @@
 				DEVELOPMENT_TEAM = P5Y2238DYD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProTuner/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to detect notes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -438,6 +452,7 @@
 				DEVELOPMENT_TEAM = P5Y2238DYD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProTuner/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app requires microphone access to detect notes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

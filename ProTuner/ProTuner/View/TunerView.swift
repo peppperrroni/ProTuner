@@ -9,14 +9,45 @@ import SwiftUI
 
 struct TunerView<ViewModel: TunerViewModelProtocol>: View {
     
+    private let style: TunerViewStyle
+    
+    init(
+        style: TunerViewStyle,
+        viewModel: ViewModel
+    ) {
+        self.style = style
+        self.viewModel = viewModel
+        let appearance = UISegmentedControl.appearance()
+        appearance.selectedSegmentTintColor = self.style.selectedSegmentTintColor
+        appearance.setTitleTextAttributes(
+            [.foregroundColor: self.style.selectedSegmentColor],
+            for: .selected
+        )
+        appearance.setTitleTextAttributes(
+            [.foregroundColor: self.style.normalSegmentColor],
+            for: .normal
+        )
+    }
+    
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(self.viewModel.currentMode.rawValue)
+                .font(self.style.titleFont)
+                .foregroundColor(self.style.titleColor)
+                .padding(self.style.layout.titleInsets)
+            Picker("Mode", selection: self.$viewModel.currentMode) {
+                ForEach(Mode.allCases) { mode in
+                    Text(mode.rawValue).tag(mode)
+                        .font(self.style.segmentControlFont)
+                }
+            }
+            .pickerStyle(.segmented)
+            .padding()
+            tunerView()
+                .padding()
+            Spacer()
         }.onAppear {
             self.viewModel.start()
         }.onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
@@ -37,7 +68,8 @@ struct TunerView<ViewModel: TunerViewModelProtocol>: View {
         } message: {
             Text(self.viewModel.alertData.subtitle)
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(self.style.backgroundColor)
     }
     
     private func alertButton(action: (() -> Void)?, label: String) -> some View {
@@ -47,8 +79,17 @@ struct TunerView<ViewModel: TunerViewModelProtocol>: View {
             return Button(label) { action?() }
         }
     }
+    @ViewBuilder
+    private func tunerView() -> some View {
+        switch self.viewModel.currentMode {
+        case .auto:
+            AutoTunerView()
+        case .manual:
+            ManualTunerView()
+        }
+    }
 }
 
 #Preview {
-    TunerView(viewModel: TunerViewModel())
+    TunerView(style: .defaultStyle(), viewModel: TunerViewModel())
 }
